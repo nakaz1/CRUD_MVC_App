@@ -1,0 +1,9 @@
+web\service\UserService.class
+web\dao\UserDaoImp.class
+web\config\HibernateConfig.class
+web\config\SpringMvcDispatcherServletInitializer.class
+web\controller\UserController.class
+web\dao\UserDao.class
+web\config\SpringConfig.class
+web\model\User.class
+web\service\UserServiceImp.class
