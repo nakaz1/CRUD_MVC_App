@@ -7,28 +7,28 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-import web.dao.UserDao;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import web.service.UserService;
 
 @Controller
+@RequestMapping("/")
 public class UserController {
 
-    private final UserDao userDao;
+    private final UserService userService;
+
     @Autowired
-    public UserController(UserDao userDao) {
-        this.userDao = userDao;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/")
+
+    @GetMapping(value = "/users")
     public String index(ModelMap model) {
-        model.addAttribute("users", "message");
+        model.addAttribute("users", userService.list());
         return "index";
     }
 
-//    @GetMapping("/{id}")
-//    public String show(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("user", userDao.getUserById(id));
-//        return "show";
-//    }
 
 
 
