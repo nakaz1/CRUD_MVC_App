@@ -5,7 +5,21 @@
     <title>Users</title>
 </head>
 <body>
-fsdfsdfdsfdsfdsfdsfds
+test
+<table border="1">
+    <tr>
+        <td>ID</td>
+        <td>username</td>
+
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getUsername()}"></td>
+
+
+
+    </tr>
+</table>
 
 
 
