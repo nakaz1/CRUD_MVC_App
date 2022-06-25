@@ -3,16 +3,16 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import web.model.User;
 import web.service.UserService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -23,13 +23,38 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/users")
+    @GetMapping
     public String index(ModelMap model) {
         model.addAttribute("users", userService.list());
-        return "index";
+        return "users/index";
     }
 
+    @GetMapping("/new")
+    public String newUser(@ModelAttribute("user") User user) {
+        return "users/create";
+    }
 
+    @PostMapping
+    public String creat(@ModelAttribute("user") User user) {
+        userService.add(user);
+        return "redirect:/users";
+    }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id")long id, Model model) {
+        model.addAttribute("user", userService.get(id));
+        return "users/edit";
+    }
 
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") User user){
+        userService.update(user);
+        return "redirect:/users";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@ModelAttribute("user") User user) {
+        userService.remove(user);
+        return "redirect:/users";
+    }
 }

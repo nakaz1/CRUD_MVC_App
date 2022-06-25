@@ -13,12 +13,8 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao{
     @PersistenceContext
-    private final EntityManager entityManager;
+    private EntityManager entityManager;
 
-    @Autowired
-    public UserDaoImp(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
 
     @Override
     public void add(User user) {
@@ -32,8 +28,8 @@ public class UserDaoImp implements UserDao{
 
     @Override
     public List<User> list(){
-//        TypedQuery<User> query = entityManager.createQuery("select u from User u", User.class);
-       return entityManager.createQuery("SELECT u from User u").getResultList();
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
+        return query.getResultList();
     }
 
     @Override
